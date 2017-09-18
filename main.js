@@ -3,16 +3,36 @@
 /* eslint-disable one-var */
 /* eslint-disable require-jsdoc */
 
+const Bluebird = require("bluebird");
 const electron = require("electron");
+const fs = require("fs");
 const path = require("path");
+const tesseract = require("node-tesseract");
 const url = require("url");
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
+Bluebird.promisifyAll(fs);
+Bluebird.promisifyAll(tesseract);
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+const imagePath = "../../Pictures/Memes";
+
+fs.readdirAsync(imagePath).then(files => {
+    for (let file of files) {
+        if (file.includes(".jpg") || file.includes(".png")) {
+            const filePath = path.join(imagePath, file);
+
+            tesseract.processAsync(filePath).then((text) => {
+                console.log(text);
+            });
+        }
+    }
+});
 
 function createWindow() {
     mainWindow = new BrowserWindow({
