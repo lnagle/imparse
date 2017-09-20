@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
+    "is-electron-renderer": "^2.0.1",
     "node-tesseract": "^0.2.7"
   }
 }

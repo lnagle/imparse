@@ -2,6 +2,8 @@
 
 /* eslint-disable one-var */
 /* eslint-disable require-jsdoc */
+/* eslint-disable prefer-const */
+/* eslint-disable init-declarations */
 
 const Bluebird = require("bluebird");
 const electron = require("electron");
@@ -22,16 +24,30 @@ let mainWindow;
 
 const imagePath = "../../Pictures/Memes";
 
-fs.readdirAsync(imagePath).then(files => {
+function prepImagePromises(imgPath, files) {
+    let filePromises = [];
+
     for (let file of files) {
         if (file.includes(".jpg") || file.includes(".png")) {
-            const filePath = path.join(imagePath, file);
+            const filePath = path.join(imgPath, file);
 
-            tesseract.processAsync(filePath).then((text) => {
-                console.log(text);
-            });
+            filePromises.push(tesseract.processAsync(filePath));
         }
     }
+
+    return filePromises;
+}
+
+function parseDirectory(imgPath) {
+    return fs.readdirAsync(imgPath).then((files) => {
+        let filePromises = prepImagePromises(imgPath, files);
+
+        return Bluebird.all(filePromises);
+    });
+}
+
+parseDirectory(imagePath).then((images) => {
+    console.log(images);
 });
 
 function createWindow() {
@@ -39,6 +55,20 @@ function createWindow() {
         width: 800,
         height: 600
     });
+
+    // const displayWindow = new BrowserWindow({
+    //     show: false
+    // });
+    //
+    // displayWindow.once("ready-to-show", () => {
+    //     displayWindow.show();
+    //
+    //     displayWindow.loadURL(url.format({
+    //         pathname: path.join(__dirname, "index.html"),
+    //         protocol: "file:",
+    //         slashes: true
+    //     }));
+    // });
 
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, "index.html"),
