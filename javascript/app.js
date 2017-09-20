@@ -1,12 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-var HelloBox = React.createClass({
+// require('../less/main.less');
 
+var HelloBox = React.createClass({
   render: function() {
     return (
-      <div className="helloTag">
-      Hello world from ReactJS
+      <div className="content">
+          Hello world from ReactJS
       </div>
     );
   }
