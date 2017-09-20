@@ -9,3 +9,7 @@ node_modules/
 *.bak
 *~
 *#
+
+# Files created by Webpack
+bundle.js
+bundle.min.js
