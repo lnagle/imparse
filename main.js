@@ -46,10 +46,6 @@ function parseDirectory(imgPath) {
     });
 }
 
-parseDirectory(imagePath).then((images) => {
-    console.log(images);
-});
-
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
@@ -75,6 +71,12 @@ function createWindow() {
         protocol: "file:",
         slashes: true
     }));
+
+    parseDirectory(imagePath).then((images) => {
+        console.log(images);
+
+        mainWindow.webContents.send("imageData", images);
+    });
 
     // Open DevTools.
     mainWindow.webContents.openDevTools();

@@ -39,6 +39,7 @@ module.exports = {
             }
         ]
     },
+    target: "electron",
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ]
