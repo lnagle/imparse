@@ -22,11 +22,13 @@ class ImagesContainer extends Component {
     render() {
         return (
             <div className="content">
-                Hello world from ReactJS
-
-                <br/>
-
-                Images: {this.state.images}
+                {this.state.images.map((image, index) => {
+                    return <p key={index}>
+                        <img src={image.fullPath}></img>
+                        <br/>
+                        {image.parsedText}
+                    </p>
+                })}
             </div>
         );
     }

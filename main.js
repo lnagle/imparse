@@ -24,25 +24,51 @@ let mainWindow;
 
 const imagePath = "../../Pictures/Memes";
 
-function prepImagePromises(imgPath, files) {
-    let filePromises = [];
+// function prepImagePromises(imgPath, files) {
+//     let filePromises = [];
+//
+//     for (let file of files) {
+//         if (file.includes(".jpg") || file.includes(".png")) {
+//             const filePath = path.join(imgPath, file);
+//
+//             filePromises.push(tesseract.processAsync(filePath));
+//         }
+//     }
+//
+//     return filePromises;
+// }
 
-    for (let file of files) {
-        if (file.includes(".jpg") || file.includes(".png")) {
-            const filePath = path.join(imgPath, file);
-
-            filePromises.push(tesseract.processAsync(filePath));
-        }
-    }
-
-    return filePromises;
+// function parseDirectory(imgPath) {
+//     return fs.readdirAsync(imgPath).then((files) => {
+//         let filePromises = prepImagePromises(imgPath, files);
+//
+//         return Bluebird.all(filePromises);
+//     });
+// }
+function filterForImages(files) {
+    return files.filter((fileName) => {
+        return fileName.includes(".jpg") || fileName.includes(".png");
+    });
 }
 
-function parseDirectory(imgPath) {
-    return fs.readdirAsync(imgPath).then((files) => {
-        let filePromises = prepImagePromises(imgPath, files);
+function parseImages(dirPath, files) {
+    files = filterForImages(files);
 
-        return Bluebird.all(filePromises);
+    return files.map((fileName) => {
+        const fullPath = path.join(dirPath, fileName);
+
+        return tesseract.processAsync(fullPath).then((parsedText) => {
+            return {
+                fullPath,
+                parsedText
+            };
+        });
+    });
+}
+
+function parseDirectory(dirPath) {
+    return fs.readdirAsync(dirPath).then((files) => {
+        return Bluebird.all(parseImages(dirPath, files));
     });
 }
 
@@ -73,8 +99,6 @@ function createWindow() {
     }));
 
     parseDirectory(imagePath).then((images) => {
-        console.log(images);
-
         mainWindow.webContents.send("imageData", images);
     });
 
