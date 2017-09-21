@@ -1,22 +1,35 @@
-import React from "react"
+import React, { Component } from "react"
 import ReactDOM from "react-dom"
-import {ipcRenderer} from "electron"
+import { ipcRenderer } from "electron"
 
 // require('../less/main.less');
-//
-ipcRenderer.on("imageData", (event, arg) => {
-    console.log(event);
-    console.log(arg);
-})
 
-var HelloBox = React.createClass({
-  render: function() {
-    return (
-      <div className="content">
-          Hello world from ReactJS
-      </div>
-    );
-  }
-});
+class ImagesContainer extends Component {
+    constructor(props) {
+        super(props)
 
-ReactDOM.render(<HelloBox/>, document.getElementById("content"));
+        this.state = {
+            images: []
+        }
+
+        this.listener = ipcRenderer.on("imageData", (event, arg) => {
+            this.setState({
+                images: arg
+            });
+        })
+    }
+
+    render() {
+        return (
+            <div className="content">
+                Hello world from ReactJS
+
+                <br/>
+
+                Images: {this.state.images}
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<ImagesContainer/>, document.getElementById("content"));
