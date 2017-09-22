@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import { ipcRenderer } from "electron"
-
-// require('../less/main.less');
+import ParsedImageResults from "./components/ParsedImageResults";
 
 class ImagesContainer extends Component {
     constructor(props) {
@@ -22,13 +21,7 @@ class ImagesContainer extends Component {
     render() {
         return (
             <div className="content">
-                {this.state.images.map((image, index) => {
-                    return <p key={index}>
-                        <img src={image.fullPath}></img>
-                        <br/>
-                        {image.parsedText}
-                    </p>
-                })}
+                <ParsedImageResults images={this.state.images} />
             </div>
         );
     }

@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         app: [
             "webpack/hot/dev-server",
-            "./javascript/app.js"
+            "./app.js"
         ]
     },
     output: {
