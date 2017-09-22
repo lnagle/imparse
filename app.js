@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import { ipcRenderer } from "electron"
 import ParsedImageResults from "./components/ParsedImageResults";
+import Search from "./components/Search"
 
 class ImagesContainer extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class ImagesContainer extends Component {
     render() {
         return (
             <div className="content">
+                <Search />
                 <ParsedImageResults images={this.state.images} />
             </div>
         );
