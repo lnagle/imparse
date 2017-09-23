@@ -9,21 +9,35 @@ class ImagesContainer extends Component {
         super(props)
 
         this.state = {
+            filteredImages: [],
             images: []
         }
 
-        this.listener = ipcRenderer.on("imageData", (event, arg) => {
-            this.setState({
-                images: arg
-            });
+        this.listener = ipcRenderer.on("imageData", (event, images) => {
+            this.setState({images});
         })
+
+        this.filter = (term) => {
+            let filteredImages = [];
+
+            if (term) {
+                filteredImages = this.state.images.filter((image) => {
+                    return image.parsedText.toUpperCase().includes(term.toUpperCase());
+                });
+
+            }
+
+            this.setState({filteredImages});
+        };
     }
 
     render() {
         return (
             <div className="content">
-                <Search />
-                <ParsedImageResults images={this.state.images} />
+                <Search
+                    onSearchTermChange={this.filter}/>
+                <ParsedImageResults
+                    images={this.state.filteredImages} />
             </div>
         );
     }

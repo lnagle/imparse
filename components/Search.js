@@ -1,12 +1,31 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 
-const Search = () => {
-    return (
-        <form>
-            <input type="text" placeholder="Help Computer" />
-        </form>
-    )
+class Search extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            term: ""
+        }
+    }
+
+    render() {
+        return (
+            <form>
+                <input
+                    onChange={event => this.onInputChange(event.target.value)}
+                    placeholder="Help Computer"
+                    type="text"
+                    value={this.state.term} />
+            </form>
+        )
+    }
+
+    onInputChange(term) {
+        this.setState({term});
+        this.props.onSearchTermChange(term);
+    }
 }
 
 export default Search;

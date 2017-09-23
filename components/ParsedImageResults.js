@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
-import ParsedImageResult from "./ParsedImageResult.js"
+import ParsedImageResult from "./ParsedImageResult"
 
 const ParsedImageResults = ({images}) => {
     const parsedImageResults = images.map((image, index) => {
