@@ -30,20 +30,6 @@ function createWindow() {
         height: 850
     });
 
-    // const displayWindow = new BrowserWindow({
-    //     show: false
-    // });
-    //
-    // displayWindow.once("ready-to-show", () => {
-    //     displayWindow.show();
-    //
-    //     displayWindow.loadURL(url.format({
-    //         pathname: path.join(__dirname, "index.html"),
-    //         protocol: "file:",
-    //         slashes: true
-    //     }));
-    // });
-
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, "index.html"),
         protocol: "file:",
