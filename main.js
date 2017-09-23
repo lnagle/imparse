@@ -1,5 +1,3 @@
-"use strict";
-
 /* eslint-disable one-var */
 /* eslint-disable require-jsdoc */
 /* eslint-disable prefer-const */
@@ -14,6 +12,8 @@ const url = require("url");
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const directoryParser = require("./helpers/directory_parser")(Bluebird, fs, path,
+    tesseract);
 
 Bluebird.promisifyAll(fs);
 Bluebird.promisifyAll(tesseract);
@@ -24,58 +24,10 @@ let mainWindow;
 
 const imagePath = "../../Pictures/Memes";
 
-// function prepImagePromises(imgPath, files) {
-//     let filePromises = [];
-//
-//     for (let file of files) {
-//         if (file.includes(".jpg") || file.includes(".png")) {
-//             const filePath = path.join(imgPath, file);
-//
-//             filePromises.push(tesseract.processAsync(filePath));
-//         }
-//     }
-//
-//     return filePromises;
-// }
-
-// function parseDirectory(imgPath) {
-//     return fs.readdirAsync(imgPath).then((files) => {
-//         let filePromises = prepImagePromises(imgPath, files);
-//
-//         return Bluebird.all(filePromises);
-//     });
-// }
-function filterForImages(files) {
-    return files.filter((fileName) => {
-        return fileName.includes(".jpg") || fileName.includes(".png");
-    });
-}
-
-function parseImages(dirPath, files) {
-    files = filterForImages(files);
-
-    return files.map((fileName) => {
-        const fullPath = path.join(dirPath, fileName);
-
-        return tesseract.processAsync(fullPath).then((parsedText) => {
-            return {
-                fullPath,
-                parsedText
-            };
-        });
-    });
-}
-
-function parseDirectory(dirPath) {
-    return fs.readdirAsync(dirPath).then((files) => {
-        return Bluebird.all(parseImages(dirPath, files));
-    });
-}
-
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600
+        width: 1200,
+        height: 850
     });
 
     // const displayWindow = new BrowserWindow({
@@ -98,7 +50,7 @@ function createWindow() {
         slashes: true
     }));
 
-    parseDirectory(imagePath).then((images) => {
+    directoryParser.parse(imagePath).then((images) => {
         mainWindow.webContents.send("imageData", images);
     });
 
