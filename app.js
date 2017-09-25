@@ -12,7 +12,9 @@ class ImagesContainer extends Component {
 
         this.state = {
             filteredImages: [],
-            images: []
+            images: [],
+            isRecursionEnabled: false,
+            selectedDirectory: ""
         }
 
         this.listener = ipcRenderer.on("imageData", (event, images) => {
@@ -36,28 +38,49 @@ class ImagesContainer extends Component {
             clipboard.writeImage(fullPath);
         }
 
-        this.test = () => {
+        this.changeDirectory = () => {
             dialog.showOpenDialog({
                 properties: [
                     "openDirectory"
                 ]
-            }, (dirPath) => {
-                if (dirPath) {
-                    ipcRenderer.send("newDirectoryChosen", dirPath);
+            }, (selectedDirectory) => {
+                if (selectedDirectory) {
+                    this.setState({selectedDirectory})
                 }
             });
+        }
+
+        this.updateResults = () => {
+            ipcRenderer.send("newDirectoryChosen", this.state.selectedDirectory);
         }
     }
 
     render() {
         return (
             <div className="content">
-                <button onClick={this.test}>Click Me</button>
-                <Search
-                    onSearchTermChange={this.filter}/>
-                <ParsedImageResults
-                    images={this.state.images}
-                    copyImage={this.copyImage} />
+                <div id="search">
+                    <div>
+                        <button onClick={this.changeDirectory}>Change Directory</button>
+                    </div>
+                    <div>
+                        Directory Selected: {this.state.selectedDirectory}
+                    </div>
+                    <div>
+                        Search Rescursively: <input type="checkbox" value={this.state.isRecursionEnabled} />
+                    </div>
+                    <div>
+                        <button onClick={this.updateResults}>Go!</button>
+                    </div>
+
+                    Filter Results: <Search
+                        onSearchTermChange={this.filter}/>
+                </div>
+
+                <div id="searchResults">
+                    <ParsedImageResults
+                        images={this.state.filteredImages.length ? this.state.filteredImages : this.state.images}
+                        copyImage={this.copyImage} />
+                </div>
             </div>
         );
     }
