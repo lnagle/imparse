@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
-import { clipboard, ipcRenderer } from "electron"
+import { clipboard, ipcRenderer, remote } from "electron"
 import ParsedImageResults from "./components/ParsedImageResults";
 import Search from "./components/Search"
+
+const dialog = remote.dialog;
 
 class ImagesContainer extends Component {
     constructor(props) {
@@ -33,15 +35,28 @@ class ImagesContainer extends Component {
         this.copyImage = (fullPath) => {
             clipboard.writeImage(fullPath);
         }
+
+        this.test = () => {
+            dialog.showOpenDialog({
+                properties: [
+                    "openDirectory"
+                ]
+            }, (dirPath) => {
+                if (dirPath) {
+                    ipcRenderer.send("newDirectoryChosen", dirPath);
+                }
+            });
+        }
     }
 
     render() {
         return (
             <div className="content">
+                <button onClick={this.test}>Click Me</button>
                 <Search
                     onSearchTermChange={this.filter}/>
                 <ParsedImageResults
-                    images={this.state.filteredImages}
+                    images={this.state.images}
                     copyImage={this.copyImage} />
             </div>
         );

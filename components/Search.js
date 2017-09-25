@@ -15,7 +15,6 @@ class Search extends Component {
             <form>
                 <input
                     onChange={event => this.onInputChange(event.target.value)}
-                    placeholder="Help Computer"
                     type="text"
                     value={this.state.term} />
             </form>

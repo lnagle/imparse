@@ -4,7 +4,7 @@
 /* eslint-disable init-declarations */
 
 const Bluebird = require("bluebird");
-const {app, BrowserWindow} = require("electron");
+const {app, BrowserWindow, ipcMain} = require("electron");
 const fs = require("fs");
 const path = require("path");
 const tesseract = require("node-tesseract");
@@ -20,7 +20,7 @@ Bluebird.promisifyAll(tesseract);
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-const imagePath = "../../Pictures/Memes";
+let imagePath = "../../Pictures/Memes";
 
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -34,12 +34,21 @@ function createWindow() {
         slashes: true
     }));
 
-    directoryParser.parse(imagePath).then((images) => {
-        mainWindow.webContents.send("imageData", images);
-    });
+    function refreshImages(imgPath) {
+        directoryParser.parse(imgPath).then((images) => {
+            mainWindow.webContents.send("imageData", images);
+        });
+    }
+
+    refreshImages(imagePath);
 
     // Open DevTools.
     mainWindow.webContents.openDevTools();
+
+    ipcMain.on("newDirectoryChosen", (event, dirPath) => {
+        imagePath = dirPath[0];
+        refreshImages(imagePath);
+    });
 
     mainWindow.on("closed", () => {
         // Dereference the window object, usually you would store windows
