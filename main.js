@@ -4,21 +4,19 @@
 /* eslint-disable init-declarations */
 
 const Bluebird = require("bluebird");
-const electron = require("electron");
+const {app, BrowserWindow} = require("electron");
 const fs = require("fs");
 const path = require("path");
 const tesseract = require("node-tesseract");
 const url = require("url");
 
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
 const directoryParser = require("./helpers/directory_parser")(Bluebird, fs, path,
     tesseract);
 
 Bluebird.promisifyAll(fs);
 Bluebird.promisifyAll(tesseract);
 
-// Keep a global reference of the window object, if you don't, the window will
+// Keep a global reference of the window object, if you don"t, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
@@ -65,7 +63,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    // On OS X it's common to re-create a window in the app when the
+    // On OS X it"s common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
         createWindow();

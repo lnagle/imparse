@@ -20,19 +20,16 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "bluebird": "^3.5.0",
     "css-loader": "^0.28.7",
     "electron": "~1.6.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "node-tesseract": "^0.2.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
-  },
-  "dependencies": {
-    "bluebird": "^3.5.0",
-    "is-electron-renderer": "^2.0.1",
-    "node-tesseract": "^0.2.7"
   }
 }

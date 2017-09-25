@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
-import { ipcRenderer } from "electron"
+import { clipboard, ipcRenderer } from "electron"
 import ParsedImageResults from "./components/ParsedImageResults";
 import Search from "./components/Search"
 
@@ -29,6 +29,10 @@ class ImagesContainer extends Component {
 
             this.setState({filteredImages});
         };
+
+        this.copyImage = (fullPath) => {
+            clipboard.writeImage(fullPath);
+        }
     }
 
     render() {
@@ -37,7 +41,8 @@ class ImagesContainer extends Component {
                 <Search
                     onSearchTermChange={this.filter}/>
                 <ParsedImageResults
-                    images={this.state.filteredImages} />
+                    images={this.state.filteredImages}
+                    copyImage={this.copyImage} />
             </div>
         );
     }
