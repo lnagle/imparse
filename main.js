@@ -5,13 +5,13 @@
 
 const Bluebird = require("bluebird");
 const {app, BrowserWindow, ipcMain} = require("electron");
+const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
 const tesseract = require("node-tesseract");
 const url = require("url");
 
-const directoryParser = require("./helpers/directory_parser")(Bluebird, fs, path,
-    tesseract);
+const directoryParser = require("./helpers/directory_parser")(_, Bluebird, fs, path, tesseract);
 
 Bluebird.promisifyAll(fs);
 Bluebird.promisifyAll(tesseract);
@@ -34,7 +34,6 @@ function createWindow() {
 
     function refreshImages(imgPath, isRecursiveSearch) {
         directoryParser.parse(imgPath, isRecursiveSearch).then((images) => {
-            console.log("IM SENDING IM SENDING IM SENDING IM SENDING");
             mainWindow.webContents.send("imageData", images);
         });
     }

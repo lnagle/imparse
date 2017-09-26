@@ -34,8 +34,8 @@ class ImagesContainer extends Component {
             this.setState({filteredImages});
         };
 
-        this.copyImage = (fullPath) => {
-            clipboard.writeImage(fullPath);
+        this.copyImage = (absolutePath) => {
+            clipboard.writeImage(absolutePath);
         }
 
         this.changeDirectory = () => {
