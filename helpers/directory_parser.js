@@ -1,10 +1,29 @@
 module.exports = (_, Bluebird, fs, path, tesseract) => {
+    const supportedFormats = [
+        ".bmp",
+        ".jfif",
+        ".jpeg",
+        ".jpg",
+        ".png",
+        ".pnm",
+        ".tif",
+        ".tiff"
+    ];
+
     /**
      * @param {string} fileName
      * @return {bool}
      */
     function isImage(fileName) {
-        return fileName.includes(".jpg") || fileName.includes(".png") || fileName.includes(".jpeg");
+        let validFormat;
+
+        for (const format of supportedFormats) {
+            if (fileName.includes(format)) {
+                validFormat = true;
+            }
+        }
+
+        return validFormat;
     }
 
     /**
