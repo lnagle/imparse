@@ -20,8 +20,6 @@ Bluebird.promisifyAll(tesseract);
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-let imagePath = "../../Pictures/Memes";
-
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1200,
@@ -34,20 +32,18 @@ function createWindow() {
         slashes: true
     }));
 
-    function refreshImages(imgPath) {
-        directoryParser.parse(imgPath).then((images) => {
+    function refreshImages(imgPath, isRecursiveSearch) {
+        directoryParser.parse(imgPath, isRecursiveSearch).then((images) => {
+            console.log("IM SENDING IM SENDING IM SENDING IM SENDING");
             mainWindow.webContents.send("imageData", images);
         });
     }
 
-    refreshImages(imagePath);
-
     // Open DevTools.
     mainWindow.webContents.openDevTools();
 
-    ipcMain.on("newDirectoryChosen", (event, dirPath) => {
-        imagePath = dirPath[0];
-        refreshImages(imagePath);
+    ipcMain.on("newDirectoryChosen", (event, dirPath, isRecursiveSearch) => {
+        refreshImages(dirPath[0], isRecursiveSearch);
     });
 
     mainWindow.on("closed", () => {

@@ -1,30 +1,52 @@
+/* eslint-disable require-jsdoc */
+
 module.exports = (Bluebird, fs, path, tesseract) => {
-    function filterForImages(files) {
-        return files.filter((fileName) => {
-            return fileName.includes(".jpg") || fileName.includes(".png");
+    var parseDirectory;
+
+    function isImage(fileName) {
+        return fileName.includes(".jpg") || fileName.includes(".png") || fileName.includes(".jpeg");
+    }
+
+    function directoryCheck(fullPath) {
+        return fs.lstatAsync(fullPath).then((dirInfo) => {
+            return dirInfo.isDirectory();
         });
     }
 
-    function parseImages(dirPath, files) {
-        files = filterForImages(files);
+    function parseImage(fullPath) {
+        console.log(fullPath);
 
-        return files.map((fileName) => {
-            const fullPath = path.join(dirPath, fileName);
-
-            return tesseract.processAsync(fullPath).then((parsedText) => {
-                return {
-                    fullPath,
-                    parsedText
-                };
-            });
+        return tesseract.processAsync(`'${fullPath}'`).then((parsedText) => {
+            return {
+                fullPath,
+                parsedText
+            };
         });
     }
 
-    function parseDirectory(dirPath) {
-        return fs.readdirAsync(dirPath).then((files) => {
-            return Bluebird.all(parseImages(dirPath, files));
+    function readdirAbsoluteAsync(dirPath) {
+        return fs.readdirAsync(dirPath).map(file => {
+            return path.join(dirPath, file);
         });
     }
+
+    function filter(filePath, isRecursiveSearch) {
+        return directoryCheck(filePath).then((isDir) => {
+            if (isDir && isRecursiveSearch) {
+                return parseDirectory(filePath, isRecursiveSearch);
+            }
+
+            return isImage(filePath);
+        });
+    }
+
+    parseDirectory = (dirPath, isRecursiveSearch) => {
+        return readdirAbsoluteAsync(dirPath).filter((filePath) => {
+            return filter(filePath, isRecursiveSearch);
+        }).map((filteredPath) => {
+            return parseImage(filteredPath);
+        });
+    };
 
     return {
         parse: parseDirectory

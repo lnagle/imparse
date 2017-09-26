@@ -51,7 +51,13 @@ class ImagesContainer extends Component {
         }
 
         this.updateResults = () => {
-            ipcRenderer.send("newDirectoryChosen", this.state.selectedDirectory);
+            ipcRenderer.send("newDirectoryChosen", this.state.selectedDirectory, this.state.isRecursionEnabled, "123");
+        }
+
+        this.toggleIsRecursionEnabled = () => {
+            this.setState({
+                isRecursionEnabled: !this.state.isRecursionEnabled
+            });
         }
     }
 
@@ -66,7 +72,7 @@ class ImagesContainer extends Component {
                         Directory Selected: {this.state.selectedDirectory}
                     </div>
                     <div>
-                        Search Rescursively: <input type="checkbox" value={this.state.isRecursionEnabled} />
+                        Search Rescursively: <input type="checkbox" onClick={this.toggleIsRecursionEnabled} value={this.state.isRecursionEnabled} />
                     </div>
                     <div>
                         <button onClick={this.updateResults}>Go!</button>
