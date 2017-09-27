@@ -7,8 +7,6 @@ const ParsedImageResult = ({image, copyImage}) => {
             <button onClick={e => copyImage(image.absolutePath)}>
             <img src={image.absolutePath} height="50%"></img>
         </button>
-        <br/>
-        {image.parsedText}
     </div>
     )
 }

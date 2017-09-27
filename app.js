@@ -3,6 +3,10 @@ import ReactDOM from "react-dom"
 import { clipboard, ipcRenderer, remote } from "electron"
 import ParsedImageResults from "./components/ParsedImageResults";
 import Search from "./components/Search"
+import { Row } from "react-grid-system";
+
+
+require("./less/app.less");
 
 const dialog = remote.dialog;
 
@@ -81,12 +85,13 @@ class ImagesContainer extends Component {
                     Filter Results: <Search
                         onSearchTermChange={this.filter}/>
                 </div>
-
-                <div id="searchResults">
-                    <ParsedImageResults
-                        images={this.state.filteredImages.length ? this.state.filteredImages : this.state.images}
-                        copyImage={this.copyImage} />
-                </div>
+                <Row>
+                    <div id="searchResults">
+                        <ParsedImageResults
+                            images={this.state.filteredImages.length ? this.state.filteredImages : this.state.images}
+                            copyImage={this.copyImage} />
+                    </div>
+                </Row>
             </div>
         );
     }

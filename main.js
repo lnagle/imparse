@@ -22,7 +22,7 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1200,
+        width: 1300,
         height: 850
     });
 
@@ -39,7 +39,7 @@ function createWindow() {
     }
 
     // Open DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     ipcMain.on("newDirectoryChosen", (event, dirPath, isRecursiveSearch) => {
         refreshImages(dirPath[0], isRecursiveSearch);
