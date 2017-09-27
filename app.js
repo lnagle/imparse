@@ -2,9 +2,8 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import { clipboard, ipcRenderer, remote } from "electron"
 import ParsedImageResults from "./components/ParsedImageResults";
-import Search from "./components/Search"
+import Filter from "./components/Filter"
 import { Row } from "react-grid-system";
-
 
 require("./less/app.less");
 
@@ -68,22 +67,35 @@ class ImagesContainer extends Component {
     render() {
         return (
             <div className="content">
-                <div id="search">
-                    <div>
-                        <button onClick={this.changeDirectory}>Change Directory</button>
-                    </div>
-                    <div>
-                        Directory Selected: {this.state.selectedDirectory}
-                    </div>
-                    <div>
-                        Search Rescursively: <input type="checkbox" onClick={this.toggleIsRecursionEnabled} value={this.state.isRecursionEnabled} />
-                    </div>
-                    <div>
-                        <button onClick={this.updateResults}>Go!</button>
+                <div id="menu">
+                    <div id="header">
+                        <div id="title">
+                            <h1>Image Parser</h1>
+                        </div>
+
+                        <Filter
+                            onSearchTermChange={this.filter}/>
                     </div>
 
-                    Filter Results: <Search
-                        onSearchTermChange={this.filter}/>
+                    <div id="controls">
+                        <div id="directoryContainer">
+                            <div>
+                                Selected Directory: {this.state.selectedDirectory}
+                            </div>
+                            <div>
+                                <button onClick={this.changeDirectory}>Change Directory...</button>
+                            </div>
+                        </div>
+                        <div id="parsingContainer">
+                            <div>
+                                <input type="checkbox" onClick={this.toggleIsRecursionEnabled} value={this.state.isRecursionEnabled} />
+                                Parse Subfolders
+                            </div>
+                            <div>
+                                <button onClick={this.updateResults}>Parse</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <Row>
                     <div id="searchResults">

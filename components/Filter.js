@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 
-class Search extends Component {
+class Filter extends Component {
     constructor(props) {
         super(props);
 
@@ -12,9 +12,10 @@ class Search extends Component {
 
     render() {
         return (
-            <form>
+            <form id="filter">
                 <input
                     onChange={event => this.onInputChange(event.target.value)}
+                    placeholder="Filter Search Results"
                     type="text"
                     value={this.state.term} />
             </form>
@@ -27,4 +28,4 @@ class Search extends Component {
     }
 }
 
-export default Search;
+export default Filter;

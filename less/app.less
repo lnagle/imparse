@@ -1,7 +1,95 @@
-@search-background: #ccffff;
+@default-font: Helvetica;
+@menu-background: #202020;
+@menu-text: #FFFFFF;
+@main-background: #404040;
 
-#search {
-    background-color: @search-background;
+html * {
+    font-family: @default-font;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: @main-background;
+}
+
+#menu {
+    background-color: @menu-background;
+    border-bottom: 1px solid #FFFFFF;
+    color: @menu-text;
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+#header {
+    display: block;
+    padding-bottom: 10px;
+    text-align: center;
+    #filter {
+        display: inline-block;
+        width: 50%;
+    }
+    #title {
+        display: inline-block;
+        width: 50%;
+    }
+}
+
+#controls {
+    display: block;
+    text-align: center;
+    #directoryContainer {
+        display: inline-block;
+        width: 50%;
+        div {
+            padding: 4px;
+        }
+    }
+    #parsingContainer {
+        display: inline-block;
+        width: 50%;
+        div {
+            padding-top: 8px;
+        }
+    }
+}
+
+button {
+    background-color: @menu-background;
+    border: none;
+    box-shadow: inset 0 0 0 1px @menu-text;
+    color: @menu-text;
+    outline: none;
+    &:active {
+        background-color: @menu-background;
+        color: @menu-text;
+    }
+    &:hover {
+        background-color: @menu-text;
+        color: @menu-background;
+    }
+}
+
+::-webkit-input-placeholder {
+    color: @menu-text;
+    text-align: center;
+}
+
+&:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+#filter {
+    input {
+        background-color: @menu-background;
+        border: none;
+        box-shadow: inset 0 0 0 1px @menu-text;
+        color: @menu-text;
+        height: 20px;
+        outline: 0;
+        text-align: center;
+        width: 200px;
+    }
 }
 
 #search-results {
