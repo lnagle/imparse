@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react";
 
 class Filter extends Component {
     constructor(props) {
@@ -7,7 +6,7 @@ class Filter extends Component {
 
         this.state = {
             term: ""
-        }
+        };
     }
 
     render() {
@@ -19,11 +18,11 @@ class Filter extends Component {
                     type="text"
                     value={this.state.term} />
             </form>
-        )
+        );
     }
 
     onInputChange(term) {
-        this.setState({term});
+        this.setState({ term });
         this.props.onSearchTermChange(term);
     }
 }

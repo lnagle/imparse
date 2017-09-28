@@ -1,14 +1,18 @@
-import React, { Component } from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import { clipboard } from "electron";
 
-const ParsedImageResult = ({image, copyImage}) => {
+function copyImage(absolutePath) {
+    clipboard.writeImage(absolutePath);
+}
+
+const ParsedImageResult = ({ image }) => {
     return (
         <div className="parsedImage">
-            <button onClick={e => copyImage(image.absolutePath)}>
+            <button onClick={copyImage(image.absolutePath)}>
                 <img src={image.absolutePath}></img>
             </button>
         </div>
-    )
-}
+    );
+};
 
 export default ParsedImageResult;

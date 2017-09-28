@@ -4,7 +4,7 @@
 /* eslint-disable init-declarations */
 
 const Bluebird = require("bluebird");
-const {app, BrowserWindow, ipcMain} = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
@@ -39,9 +39,9 @@ function createWindow() {
     }
 
     // Open DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
-    ipcMain.on("newDirectoryChosen", (event, dirPath, isRecursiveSearch) => {
+    ipcMain.on("parseImages", (event, dirPath, isRecursiveSearch) => {
         refreshImages(dirPath[0], isRecursiveSearch);
     });
 
