@@ -17,7 +17,18 @@ class ImagesContainer extends Component {
             filteredImages: [],
             images: [],
             isRecursionEnabled: false,
+            searchTermEntered: false,
             selectedDirectory: ""
+        }
+
+        this.getImages = () => {
+            if (this.state.filteredImages.length) {
+                return this.state.filteredImages;
+            } else if (this.state.searchTermEntered) {
+                return this.state.filteredImages;
+            }
+
+            return this.state.images;
         }
 
         this.listener = ipcRenderer.on("imageData", (event, images) => {
@@ -28,10 +39,18 @@ class ImagesContainer extends Component {
             let filteredImages = [];
 
             if (term) {
+                this.setState({
+                    searchTermEntered: true
+                });
+
                 filteredImages = this.state.images.filter((image) => {
                     return image.parsedText.toUpperCase().includes(term.toUpperCase());
                 });
 
+            } else {
+                this.setState({
+                    searchTermEntered: false
+                });
             }
 
             this.setState({filteredImages});
@@ -100,7 +119,7 @@ class ImagesContainer extends Component {
                 <Row>
                     <div id="searchResults">
                         <ParsedImageResults
-                            images={this.state.filteredImages.length ? this.state.filteredImages : this.state.images}
+                            images={this.getImages()}
                             copyImage={this.copyImage} />
                     </div>
                 </Row>
