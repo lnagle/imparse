@@ -4,6 +4,7 @@ import React, { Component } from "react"; // eslint-disable-line sort-imports
 import ReactDOM from "react-dom";
 import { Row } from "react-grid-system";
 import { ipcRenderer } from "electron";
+import Spinner from "react-spinkit";
 
 require("./less/app.less");
 
@@ -14,7 +15,8 @@ class ImagesContainer extends Component {
         this.state = {
             filteredImages: [],
             images: [],
-            searchTermEntered: false
+            searchTermEntered: false,
+            isLoading: false
         };
 
         this.getImages = () => {
@@ -28,6 +30,7 @@ class ImagesContainer extends Component {
         };
 
         this.listener = ipcRenderer.on("imageData", (event, images) => {
+            this.setState({ isLoading: false });
             this.setState({ images });
         });
 
@@ -54,8 +57,20 @@ class ImagesContainer extends Component {
         };
 
         this.updateResults = (selectedDirectory, isRecursionEnabled) => {
+            this.setState({ isLoading: true });
             ipcRenderer.send("parseImages", selectedDirectory, isRecursionEnabled);
         };
+
+        this.shouldShowLoading = () => {
+            if (this.state.isLoading) {
+                return (
+                    <div>
+                        <div className="overlay"></div>
+                        <Spinner overrideSpinnerClassName="loadingIcon" name="double-bounce" fadeIn="quarter" color="white"/>
+                    </div>
+                )
+            }
+        }
     }
 
     render() {
@@ -71,6 +86,8 @@ class ImagesContainer extends Component {
                             copyImage={this.copyImage} />
                     </div>
                 </Row>
+
+                {this.shouldShowLoading()}
             </div>
         );
     }
