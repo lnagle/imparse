@@ -35,6 +35,13 @@ class Menu extends Component {
     render() {
         return (
             <div id="menu">
+                <a className="tooltip">?
+                    <div>
+                        Select a directory and click parse to begin <br /><br />
+                        Use the filter bar to search for images based on their text <br /><br />
+                        Click an image to copy it to your clipboard
+                    </div>
+                </a>
                 <div id="header">
                     <div id="title">
                         <h1>Image Parser</h1>

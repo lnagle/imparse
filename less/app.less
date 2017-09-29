@@ -111,3 +111,31 @@ button {
 #searchResults {
     padding: 20px;
 }
+
+a.tooltip {
+    font-size: 18px;
+    left: 1%;
+    position: absolute;
+    top: 1%;
+    div {
+        background-color: @menu-text;
+        border-radius: 5px;
+        color: @menu-background;
+        font-size: 14px;
+        opacity: 0;
+        padding: 10px;
+        position: absolute;
+        visibility: hidden;
+        width: 300px;
+        word-wrap: break-word;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -ms-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    &:hover div {
+        opacity: 1;
+        visibility: visible;
+    }
+}
