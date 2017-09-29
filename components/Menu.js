@@ -66,7 +66,7 @@ class Menu extends Component {
                             Parse Subfolders
                         </div>
                         <div>
-                            <button onClick={this.props.updateResults(this.state.selectedDirectory, this.state.isRecursionEnabled)}>
+                            <button onClick={() => this.props.updateResults(this.state.selectedDirectory, this.state.isRecursionEnabled)}>
                                 Parse
                             </button>
                         </div>
