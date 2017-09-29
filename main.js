@@ -33,8 +33,10 @@ function createWindow() {
     }));
 
     function refreshImages(imgPath, isRecursiveSearch) {
-        directoryParser.parse(imgPath, isRecursiveSearch).then((images) => {
+        directoryParser.parse(imgPath, isRecursiveSearch).then(images => {
             mainWindow.webContents.send("imageData", images);
+        }).catch(error => {
+            mainWindow.webContents.send("error", { message: error.message });
         });
     }
 

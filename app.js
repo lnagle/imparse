@@ -14,9 +14,10 @@ class ImagesContainer extends Component {
 
         this.state = {
             filteredImages: [],
+            error: null,
             images: [],
-            searchTermEntered: false,
-            isLoading: false
+            isLoading: false,
+            searchTermEntered: false
         };
 
         this.getImages = () => {
@@ -29,9 +30,20 @@ class ImagesContainer extends Component {
             return this.state.images;
         };
 
-        this.listener = ipcRenderer.on("imageData", (event, images) => {
-            this.setState({ isLoading: false });
-            this.setState({ images });
+        this.successListener = ipcRenderer.on("imageData", (event, images) => {
+            this.setState({
+                images,
+                isLoading: false
+            });
+        });
+
+        this.errorListener = ipcRenderer.on("error", (event, errorData) => {
+            console.log(errorData);
+
+            this.setState({
+                error: "An error has occured",
+                isLoading: false
+            });
         });
 
         this.filter = (term) => {
@@ -57,7 +69,10 @@ class ImagesContainer extends Component {
         };
 
         this.updateResults = (selectedDirectory, isRecursionEnabled) => {
-            this.setState({ isLoading: true });
+            this.setState({
+                error: null,
+                isLoading: true
+            });
             ipcRenderer.send("parseImages", selectedDirectory, isRecursionEnabled);
         };
 
@@ -71,6 +86,16 @@ class ImagesContainer extends Component {
                 )
             }
         }
+
+        this.showError = () => {
+            if (this.state.error) {
+                return (
+                    <div id="errorContainer">
+                        <div>{this.state.error}</div>
+                    </div>
+                )
+            }
+        }
     }
 
     render() {
@@ -79,6 +104,9 @@ class ImagesContainer extends Component {
                 <Menu
                     filter={this.filter}
                     updateResults={this.updateResults} />
+
+                {this.showError()}
+
                 <Row>
                     <div id="searchResults">
                         <ParsedImageResults
