@@ -42,5 +42,8 @@ Coming soon
 Future Enhancements
 -------------------
 
-Coming soon
-
+* Image preprocessing to improve text parsing.
+* Ability to select multiple directories at once.
+* Stream images to front end as each is processed.
+* Push parsed results in a local data store. Pull images based on their text from
+  that data store.
