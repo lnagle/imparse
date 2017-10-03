@@ -42,14 +42,6 @@ class Menu extends Component {
                         Click an image to copy it to your clipboard
                     </div>
                 </a>
-                <div id="header">
-                    <div id="title">
-                        <h1>Image Parser</h1>
-                    </div>
-
-                    <Filter
-                        onSearchTermChange={this.props.filter}/>
-                </div>
 
                 <div id="controls">
                     <div id="directoryContainer">
@@ -72,6 +64,9 @@ class Menu extends Component {
                         </div>
                     </div>
                 </div>
+
+                <Filter
+                    onSearchTermChange={this.props.filter}/>
             </div>
         );
     }
