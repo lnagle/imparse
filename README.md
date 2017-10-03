@@ -13,7 +13,7 @@ Developer Instructions
 
 ### Prerequisites:
 
-Follow the Tesseract installation instructions found in the [node-tesseract documentation](https://github.com/desmondmorris/node-tesseract#installation)
+Follow the Tesseract installation instructions found in the [node-tesseract documentation](https://github.com/desmondmorris/node-tesseract#installation).
 
 ### Clone and Install
 
@@ -51,3 +51,4 @@ Future Enhancements
 * Stream images to front end as each is processed.
 * Push parsed results in a local data store. Pull images based on their text from
   that data store.
+* An app icon to replace the default Electron icon.

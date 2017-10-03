@@ -41,7 +41,7 @@ function createWindow() {
     }
 
     // Open DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     ipcMain.on("parseImages", (event, dirPath, isRecursiveSearch) => {
         refreshImages(dirPath[0], isRecursiveSearch);

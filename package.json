@@ -1,7 +1,7 @@
 {
-  "name": "image-parser",
+  "name": "imparse",
   "version": "1.0.0",
-  "description": "",
+  "description": "A handy desktop app for parsing images and filtering by their text.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -9,9 +9,11 @@
     "watch": "webpack-dev-server",
     "webpack": "webpack"
   },
-  "repository": "",
+  "repository": "github.com/lnagle93/imparse",
   "keywords": [
-    "Electron"
+    "Desktop",
+    "Electron",
+    "Parser"
   ],
   "author": "Lucas Nagle",
   "license": "ISC",
@@ -25,16 +27,14 @@
     "electron": "~1.6.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "lodash": "^4.17.4",
     "node-tesseract": "^0.2.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-grid-system": "^2.9.6",
+    "react-spinkit": "^3.0.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "react-grid-system": "^2.9.6",
-    "react-spinkit": "^3.0.0"
   }
 }
