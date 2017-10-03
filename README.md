@@ -11,6 +11,10 @@ Built with [Electron](https://electron.atom.io/), [NodeJS](https://nodejs.org), 
 Developer Instructions
 ----------------------
 
+### Prerequisites:
+
+Follow the Tesseract installation instructions found in the [node-tesseract documentation](https://github.com/desmondmorris/node-tesseract#installation)
+
 ### Clone and Install
 
 In your terminal:
