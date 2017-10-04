@@ -1,11 +1,12 @@
 {
-  "name": "imparse",
+  "name": "Imparse",
   "version": "1.0.0",
   "description": "A handy desktop app for parsing images and filtering by their text.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "babel": "babel",
+    "dist": "build",
     "watch": "webpack-dev-server",
     "webpack": "webpack"
   },
@@ -25,6 +26,7 @@
     "bluebird": "^3.5.0",
     "css-loader": "^0.28.7",
     "electron": "~1.6.2",
+    "electron-builder": "^19.33.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "lodash": "^4.17.4",
@@ -36,5 +38,24 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
+  },
+  "build": {
+    "appId": "Imparse",
+    "productName": "Imparse",
+    "linux": {
+        "target": "AppImage",
+        "category": "Development"
+    },
+    "mac": {
+        "target": "dmg"
+    },
+    "nsis": {
+        "oneClick": false,
+        "allowElevation": false
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    }
   }
 }
