@@ -18,23 +18,25 @@
   ],
   "author": "Lucas Nagle",
   "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
+  "dependencies": {
     "bluebird": "^3.5.0",
-    "css-loader": "^0.28.7",
-    "electron": "~1.6.2",
-    "electron-builder": "^19.33.0",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.5",
     "lodash": "^4.17.4",
     "node-tesseract": "^0.2.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-grid-system": "^2.9.6",
-    "react-spinkit": "^3.0.0",
+    "react-spinkit": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "electron": "~1.6.2",
+    "electron-builder": "^19.33.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
@@ -43,15 +45,15 @@
     "appId": "Imparse",
     "productName": "Imparse",
     "linux": {
-        "target": "AppImage",
-        "category": "Development"
+      "target": "AppImage",
+      "category": "Development"
     },
     "mac": {
-        "target": "dmg"
+      "target": "dmg"
     },
     "nsis": {
-        "oneClick": false,
-        "allowElevation": false
+      "oneClick": false,
+      "allowElevation": false
     },
     "win": {
       "target": "nsis",
