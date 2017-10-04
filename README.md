@@ -13,7 +13,7 @@ Developer Instructions
 
 ### Prerequisites:
 
-Follow the Tesseract installation instructions found in the [node-tesseract documentation](https://github.com/desmondmorris/node-tesseract#installation).
+Follow the Tesseract [installation instructions](https://github.com/tesseract-ocr/tesseract#installing-tesseract).
 
 ### Clone and Install
 
