@@ -37,6 +37,19 @@ npm start
 ```
 
 
+Supported Image Formats
+-----------------------
+
+* .bmp
+* .jfif
+* .jpeg
+* .jpg
+* .png
+* .pnm
+* .tif
+* .tiff
+
+
 Building an Executable
 ----------------------
 
