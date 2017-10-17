@@ -37,8 +37,8 @@ class Menu extends Component {
             <div id="menu">
                 <a className="tooltip">?
                     <div>
-                        Select a directory and click parse to begin <br /><br />
-                        Use the filter bar to search for images based on their text <br /><br />
+                        Select a directory and click 'Scan Images' to begin <br /><br />
+                        Use the search bar to find images based on their text <br /><br />
                         Click an image to copy it to your clipboard
                     </div>
                 </a>
@@ -49,17 +49,17 @@ class Menu extends Component {
                             Selected Directory: {this.state.selectedDirectory}
                         </div>
                         <div>
-                            <button onClick={this.changeDirectory}>Change Directory...</button>
+                            <button onClick={this.changeDirectory}>Select A Directory...</button>
                         </div>
                     </div>
                     <div id="parsingContainer">
                         <div>
                             <input type="checkbox" onClick={this.toggleIsRecursionEnabled} value={this.state.isRecursionEnabled} />
-                            Parse Subfolders
+                            Scan Subfolders
                         </div>
                         <div>
                             <button onClick={() => this.props.updateResults(this.state.selectedDirectory, this.state.isRecursionEnabled)}>
-                                Parse
+                                Scan Images
                             </button>
                         </div>
                     </div>

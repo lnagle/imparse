@@ -14,7 +14,7 @@ class Filter extends Component {
             <form id="filter">
                 <input
                     onChange={event => this.onInputChange(event.target.value)}
-                    placeholder="Filter Search Results"
+                    placeholder="Search"
                     type="text"
                     value={this.state.term} />
             </form>
